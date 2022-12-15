@@ -19,7 +19,25 @@ int main() {
         printf("2: 2 player game.\n");
         printf("q: quit\n");
         exit = scanf(" %d", &input);
+        if(input == 1) {
+            char* board = NewBoard();
+            //printf("Successfully created board");
+            for(int i = 0; i < 9; i++) {
+                printf("%c \t", *(board + i));
+            }
+        }
+        printf("You entered: %d\n", input);
     } while (exit > 0);
-    printf("Last enterd char: %c\n", input);
+    printf("Last enterd selection: %d\n", input);
     return 0;
+}
+
+char * NewBoard() {
+    static char b[10];
+    //printf("Allocated array");
+    for (int i = 0; i < 9; i++) {
+        b[i] = i + '1';
+    }
+    b[9] = '\0'; //be safe with the string ending in null terminator.
+    return b;
 }
