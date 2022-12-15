@@ -5,6 +5,7 @@
   Modification: 2020/07/11
 **********************************************************************/
 #include <WiFi.h>
+<<<<<<< HEAD
 #include <Arduino.h>
 #include <PubSubClient.h>
 const char *ssid_Router     = "ATTHvsZV22"; //Enter the router name
