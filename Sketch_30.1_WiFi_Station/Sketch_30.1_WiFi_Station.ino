@@ -5,7 +5,8 @@
   Modification: 2020/07/11
 **********************************************************************/
 #include <WiFi.h>
-  
+#include <Arduino.h>
+#include <PubSubClient.h>
 const char *ssid_Router     = "ATTHvsZV22"; //Enter the router name
 const char *password_Router = "connie8891"; //Enter the router password
 
