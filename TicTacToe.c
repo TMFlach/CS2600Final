@@ -10,6 +10,16 @@ void PrintBoard(char[]);
 char * NewBoard(); //TicTacToe board is represented by 1D array of char.
 
 int main() {
-
+    int input;
+    int exit;
+    do
+    {
+        printf("Enter your selection:\n");
+        printf("1: 1 player game.\n");
+        printf("2: 2 player game.\n");
+        printf("q: quit\n");
+        exit = scanf(" %d", &input);
+    } while (exit > 0);
+    printf("Last enterd char: %c\n", input);
     return 0;
 }
