@@ -1,4 +1,3 @@
-
 #include <WiFi.h>
 #include <PubSubClient.h>
 //wifi variables
@@ -81,6 +80,12 @@ void callback(char* topic, byte* message, unsigned int length) {
   for(int i = 0; i < length; i++) {
     Serial.print((char)message[i]);
     read += (char)message[i];
+  }
+  Serial.print(read);
+  if(read.equals("X")) {
+    digitalWrite(LED_BUILTIN, HIGH);
+  } else {
+    digitalWrite(LED_BUILTIN, LOW);
   }
   Serial.println();
 }
