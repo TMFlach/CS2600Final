@@ -6,7 +6,7 @@ int TicTacToeGame(void); //takes a function pointer of whether human player or c
 int PlayerMove(char[]);
 int ComputerMove(char[]);
 bool GameOver(char[]); //checks games state to check for game over.
-void PrintBoard(char[]);
+void PrintBoard(char*);
 char * NewBoard(); //TicTacToe board is represented by 1D array of char.
 
 int main() {
@@ -21,10 +21,7 @@ int main() {
         exit = scanf(" %d", &input);
         if(input == 1) {
             char* board = NewBoard();
-            //printf("Successfully created board");
-            for(int i = 0; i < 9; i++) {
-                printf("%c \t", *(board + i));
-            }
+            PrintBoard(board);
         }
         printf("You entered: %d\n", input);
     } while (exit > 0);
@@ -34,10 +31,18 @@ int main() {
 
 char * NewBoard() {
     static char b[10];
-    //printf("Allocated array");
     for (int i = 0; i < 9; i++) {
         b[i] = i + '1';
     }
     b[9] = '\0'; //be safe with the string ending in null terminator.
     return b;
+}
+
+void PrintBoard(char * board) {
+    for(int row = 0; row < 3; row++) {
+        for(int col = 0; col < 3; col++) {
+            printf("| %c |", board[(row * 3) + col]);
+        }
+        printf("\n");
+    }
 }
