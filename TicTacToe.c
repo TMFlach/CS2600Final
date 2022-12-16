@@ -63,7 +63,7 @@ int PlayerMove(char * game) {
         printf("Make your move\n");
         int valid = scanf(" %d", &selection);
         selection = selection - 1;
-        if(valid <= 0 || selection <= 0 || selection >= 9) {
+        if(valid <= 0 || selection < 0 || selection >= 9) {
             continue;
         }
     } while (game[selection] == 'X' || game[selection] == 'O');
