@@ -1,5 +1,6 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <Keypad.h>
 //wifi variables
 const char *ssid_Router     = "ATTHvsZV22"; //Enter the router name
 const char *password_Router = "connie8891"; //Enter the router password
@@ -13,6 +14,20 @@ const char *mqtt_pw = "PlayAllDay";
 WiFiClient wifiClient;
 PubSubClient client(wifiClient);
 
+//Keypad Variables
+// define the symbols on the buttons of the keypad
+char keys[4][4] = {
+  {'1', '2', '3', 'A'},
+  {'4', '5', '6', 'B'},
+  {'7', '8', '9', 'C'},
+  {'*', '0', '#', 'D'}
+};
+
+byte rowPins[4] = {14, 27, 26, 25}; // connect to the row pinouts of the keypad
+byte colPins[4] = {13, 21, 22, 23};   // connect to the column pinouts of the keypad
+
+// initialize an instance of class NewKeypad
+Keypad myKeypad = Keypad(makeKeymap(keys), rowPins, colPins, 4, 4);
 #define LED_BUILTIN 2
 
 void setup(){
@@ -81,6 +96,7 @@ void callback(char* topic, byte* message, unsigned int length) {
     Serial.print((char)message[i]);
     read += (char)message[i];
   }
+  /*
   Serial.print(read);
   if(read.equals("X")) {
     digitalWrite(LED_BUILTIN, HIGH);
@@ -88,6 +104,8 @@ void callback(char* topic, byte* message, unsigned int length) {
     digitalWrite(LED_BUILTIN, LOW);
   }
   Serial.println();
+  */
+
 }
  
 void loop() {
@@ -95,5 +113,10 @@ void loop() {
     reconnect();
   }
   client.loop();
-
+  char keyPressed = myKeypad.getKey();
+  if(keyPressed) {
+    char message[2] = "\0";
+    message[0] = keyPressed;
+    client.publish(topic, message);
+  }
 }
