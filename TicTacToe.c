@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 int TicTacToeGame(int (*)(char *)); //takes a function pointer of whether human player or computer player moves.
 int PlayerMove(char[]);
@@ -13,11 +14,14 @@ char * NewBoard(); //TicTacToe board is represented by 1D array of char.
 int main() {
     int input = 0;
     int exit;
+    srand(time(NULL));
     do
     {
-        if(input == 2) {
+        if(input == 1) {
+            TicTacToeGame(ComputerMove);
+        }
+        else if(input == 2) {
             TicTacToeGame(PlayerMove);
-            
         }
         printf("Enter your selection:\n");
         printf("1: 1 player game.\n");
@@ -58,6 +62,7 @@ int TicTacToeGame(int (*movement)(char*)) {
         }
         board[playerMove] = 'O';
         if(GameOver(board)) {
+            PrintBoard(board);
             return 0;
         }
         int nextMove = movement(board);
@@ -88,6 +93,17 @@ int PlayerMove(char game[]) {
         }
     } while (game[selection] == 'X' || game[selection] == 'O');
     return selection;
+}
+
+int ComputerMove(char game[])
+{
+    int move = 0;
+    do
+    {
+        move = rand() % 9;
+    } while (game[move] == 'X' || game[move] == 'O');
+    
+    return move;
 }
 
 bool GameOver(char board[]) {
